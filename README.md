@@ -1,3 +1,3 @@
 # HeyGatewayBySpring
-HeyGatewayBySpring : a Hey's springboot router to integrate local APIs standing on User, Movie, Payment and Artist set API and plugin with.
+HeyGatewayBySpring : a Hey's SpringBoot Router for integrating local APIs which binds that APIs : User, Movie, Payment and Artist.
 
