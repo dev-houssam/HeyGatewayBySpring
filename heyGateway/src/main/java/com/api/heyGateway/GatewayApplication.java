@@ -29,6 +29,7 @@ public class GatewayApplication {
 				.route(r -> r.path("/api/movies/**")
 						.filters(f -> f
 								.rewritePath("/api/?(?<segment>.*)/", "/${segment}")
+								.rewritePath("/movies/?(?<segment>.*)", "movies/${segment}")
 								.prefixPath("/")
 							.addResponseHeader("X-Powered-By","Houssam's Movies  Gateway Service")
 								.addResponseHeader("Access-Control-Allow-Origin", "*")
@@ -51,7 +52,7 @@ public class GatewayApplication {
 								.addResponseHeader("Access-Control-Allow-Origin", "*")
 								.addResponseHeader("Host-Institution","University of Western Brittany's API  Gateway Service")
 						)
-						.uri("http://localhost:9001")
+						.uri("http://localhost:12101")
 				)
 				.route(r -> r.host("http://localhost:9000/api/movies/")
 						.uri("http://localhost:12101/movies")
