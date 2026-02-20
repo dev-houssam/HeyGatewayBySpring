@@ -20,7 +20,7 @@ Répartition par API :
 - MovieAPI : 12101   -> host : http://localhost:12101
 - Paymentapi : 12102    -> host : http://localhost:12102
 - ArtistAPI : 12103  -> host : http://localhost:12103
-- UserAPI : 121104   -> host : http://localhost:12104
+- UserAPI : 12104   -> host : http://localhost:12104
 - Frontend : 12105   -> host : http://localhost:12105
 
 
