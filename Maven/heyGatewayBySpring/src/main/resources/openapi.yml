@@ -1,0 +1,499 @@
+openapi: 3.0.3
+info:
+  title: API de Gestion des routes des APIs
+  description: |
+    API REST permettant la gestion des routes dans le système.
+    Cette API permet de requeter des APIs internes au systèmes aux différents API. Il permet d'avoir un seul API et un seul port pour tous les services rendu par le système.
+    Listes des APIs prise en charges :  User, Authentication, Artist, Movie, Reservation, Frontend.
+  version: 1.0.0
+  contact:
+    name: Support Gateway Spring API - Houssam BACAR
+    email: houssam.bacar@etudiant.univ-brest.fr
+
+servers:
+  - url: http://localhost:9000
+    description: Serveur du Gateway de développement local
+
+tags:
+  - name: heyGateway
+    description: Opérations liées à la gestion des requetes aux différentes APIs.
+
+paths:
+  /api/movies:
+    get:
+      tags:
+        - movies
+      summary: Récupère tous les films
+      description: Retourne la liste complète des films enregistrés dans le système
+      operationId: getAllMovies
+      responses:
+        '200':
+          description: Liste des films récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieDto'
+        '500':
+          description: Erreur serveur interne
+
+    post:
+      tags:
+        - movies
+      summary: Crée un nouveau film
+      description: Ajoute un nouveau film dans le système
+      operationId: createMovie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieDto'
+      responses:
+        '201':
+          description: Film créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDto'
+        '400':
+          description: Données invalides
+        '500':
+          description: Erreur serveur interne
+
+  /api/movies/{id}:
+    get:
+      tags:
+        - movies
+      summary: Récupère un film par son ID
+      description: Retourne les détails d'un film spécifique
+      operationId: getMovieById
+      parameters:
+        - name: id
+          in: path
+          description: ID du film à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Film trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieDto'
+        '404':
+          description: Film non trouvé
+        '500':
+          description: Erreur serveur interne
+
+    delete:
+      tags:
+        - movies
+      summary: Supprime un film
+      description: Supprime un film du système par son ID
+      operationId: deleteMovie
+      parameters:
+        - name: id
+          in: path
+          description: ID du film à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Film supprimé avec succès
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '404':
+          description: Film non trouvé
+        '500':
+          description: Erreur serveur interne
+
+  /api/users:
+    get:
+      tags:
+        - users
+      summary: Récupère tous les utilisateurs
+      description: Retourne la liste complète des utilisateurs enregistrés dans le système
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Liste les utilisateurs récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+        '500':
+          description: Erreur serveur interne
+
+    post:
+      tags:
+        - users
+      summary: Crée un nouvel utilisateur
+      description: Ajoute un nouvel utilisateur dans le système
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: utilisateur créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '400':
+          description: Données invalides
+        '500':
+          description: Erreur serveur interne
+
+
+  /api/users/{id}:
+    get:
+      tags:
+        - users
+      summary: Récupère un utilisateur par son ID
+      description: Retourne les détails d'un utilisateur spécifique
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'utilisateur à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: utilisateur trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '404':
+          description: utilisateur non trouvé
+        '500':
+          description: Erreur serveur interne
+
+    delete:
+      tags:
+        - utilisateurs
+      summary: Supprime un utilisateur
+      description: Supprime un utilisateur du système par son ID
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'utilisateur à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Utilisateur supprimé avec succès
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '404':
+          description: Utilisateur non trouvé
+        '500':
+          description: Erreur serveur interne
+
+
+  /api/authentication:
+
+  /api/authentication/{id}:
+
+  /api/artist:
+    get:
+      tags:
+        - artists
+      summary: Récupère tous les artistes
+      description: Retourne la liste complète des artistes enregistrés dans le système
+      operationId: getAllArtists
+      responses:
+        '200':
+          description: Liste les artistes récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArtistDto'
+        '500':
+          description: Erreur serveur interne
+
+    post:
+      tags:
+        - artists
+      summary: Crée un nouvel artiste
+      description: Ajoute un nouvel artiste dans le système
+      operationId: createArtist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtistDto'
+      responses:
+        '201':
+          description: artiste créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDto'
+        '400':
+          description: Données invalides
+        '500':
+          description: Erreur serveur interne
+
+  /api/artist/{id}:
+    get:
+      tags:
+        - Artistes
+      summary: Récupère un artiste par son ID
+      description: Retourne les détails d'un artiste spécifique
+      operationId: getArtistById
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'artiste à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: artiste trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistDto'
+        '404':
+          description: artiste non trouvé
+        '500':
+          description: Erreur serveur interne
+
+    delete:
+      tags:
+        - artistes
+      summary: Supprime un artiste
+      description: Supprime un artiste du système par son ID
+      operationId: deleteArtist
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'artiste à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: artiste supprimé avec succès
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '404':
+          description: artiste non trouvé
+        '500':
+          description: Erreur serveur interne
+
+  /api/reservations:
+    get:
+      tags:
+        - reservations
+      summary: Récupère tous les reservations
+      description: Retourne la liste complète des reservations enregistrés dans le système
+      operationId: getAllReservations
+      responses:
+        '200':
+          description: Liste les reservations récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationDto'
+        '500':
+          description: Erreur serveur interne
+
+    post:
+      tags:
+        - Reservations
+      summary: Crée un nouvel reservation
+      description: Ajoute un nouvel reservation dans le système
+      operationId: createReservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationDto'
+      responses:
+        '201':
+          description: reservation créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservationDto'
+        '400':
+          description: Données invalides
+        '500':
+          description: Erreur serveur interne
+
+
+  /api/reservations/{id}:
+    get:
+      tags:
+        - Reservations
+      summary: Récupère un reservation par son ID
+      description: Retourne les détails d'un reservation spécifique
+      operationId: getReservationById
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'reservation à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: reservation trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservationDto'
+        '404':
+          description: reservation non trouvé
+        '500':
+          description: Erreur serveur interne
+
+    delete:
+      tags:
+        - reservations
+      summary: Supprime un reservation
+      description: Supprime un reservation du système par son ID
+      operationId: deleteReservation
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'reservation à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: reservation supprimé avec succès
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '404':
+          description: reservation non trouvé
+        '500':
+          description: Erreur serveur interne
+
+
+
+components:
+  schemas:
+    MovieDto:
+      type: object
+      description: Représentation d'un film dans le système
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique du film
+          example: 1
+        name:
+          type: string
+          description: Nom du film
+          example: "One punch man"
+        genre:
+          type: string
+          description: Genre du film
+          example: "Oggy et les cafards"
+      required:
+        - name
+        - genre
+    UserDto:
+      type: object
+      description: Représentation d'un utilisateur dans le système
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique de l'utilisateur
+          example: 1
+        name:
+          type: string
+          description: Nom de l'utilisateur
+          example: "Eco nomy"
+        genre:
+          type: string
+          description: Genre du film
+          example: "Oggy et les cafards"
+      required:
+        - name
+        - genre
+    ReservationDto:
+      type: object
+      description: Représentation d'une reservation dans le système
+      properties:
+        lol:
+          Information de la base de données
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique de la reservation
+          example: 1
+        name:
+          type: string
+          description: Nom de la reservation
+          example: "Eco nomy"
+        genre:
+          type: string
+          description: Genre du film
+          example: "Oggy et les cafards"
+      required:
+        - name
+        - genre
+    ArtistDto:
+      type: object
+      description: Représentation d'un artist dans le système
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique de l'artist
+          example: 1
+        name:
+          type: string
+          description: Nom de l'artist
+          example: "Eco nomy"
+        genre:
+          type: string
+          description: Genre du film
+          example: "Oggy et les cafards"
+      required:
+        - name
+        - genre
+        

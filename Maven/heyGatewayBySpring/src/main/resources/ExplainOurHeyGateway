@@ -1,0 +1,17 @@
+lb://service-name :
+
+    lb = load balancing
+    service-name = nom logique du service dans Eureka
+    Gateway utilisera Eureka pour trouver l'adresse réelle
+
+StripPrefix=2 :
+
+    Supprime les 2 premiers segments du chemin
+    Exemple : /api/service-a/health devient /health
+    Utile pour cacher la structure interne aux clients
+
+Predicates :
+
+    Conditions qui déterminent si une route doit être utilisée
+    Path=/api/service-a/** = tous les chemins commençant par /api/service-a/
+    Autres exemples : Method=GET, Header=X-API-Key, etc.

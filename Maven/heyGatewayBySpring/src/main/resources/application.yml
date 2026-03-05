@@ -1,0 +1,50 @@
+server:
+  port: 12100
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          secret-key: mySecretKey123456mySecretKey123456
+          jwk-set-uri: http://localhost:9010/.well-known/jwks.json
+  cloud:
+    gateway:
+      routes:
+
+        - id: movie-service
+          uri: http://localhost:12101
+          predicates:
+            - Path=/api/movies/**
+          filters:
+            - StripPrefix=1
+
+        - id: payment-service
+          uri: http://localhost:12102
+          predicates:
+            - Path=/api/payments/**
+          filters:
+            - StripPrefix=1
+
+        - id: artist-service
+          uri: http://localhost:12103
+          predicates:
+            - Path=/api/artists/**
+          filters:
+            - StripPrefix=1
+
+        - id: user-service
+          uri: http://localhost:12104
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+
+        - id: auth-service
+          uri: http://localhost:12124
+          predicates:
+            - Path=/auth/**
+        - id: houssam-tests-pokemon
+          uri: https://pokeapi.co/api/v2/ability/7
+          predicates:
+            - Path=/test
