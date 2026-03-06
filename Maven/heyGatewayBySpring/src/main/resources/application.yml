@@ -6,7 +6,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          secret-key: mySecretKey123456mySecretKey123456
+          secret-key: hey_mySecretKey123456mySecretKey123456
           jwk-set-uri: http://localhost:9010/.well-known/jwks.json
   cloud:
     gateway:
